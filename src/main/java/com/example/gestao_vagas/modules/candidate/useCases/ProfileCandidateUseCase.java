@@ -1,5 +1,6 @@
 package com.example.gestao_vagas.modules.candidate.useCases;
 
+import com.example.gestao_vagas.exceptions.UserNotFoundException;
 import com.example.gestao_vagas.modules.candidate.CandidateRepository;
 import com.example.gestao_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ProfileCandidateUseCase {
 
     public ProfileCandidateResponseDTO execute(UUID idCandidate){
         var candidate = this.candidateRepository.findById(idCandidate).orElseThrow(() -> {
-            throw new UsernameNotFoundException("User not found");
+            throw new UserNotFoundException("User not found");
         });
         var candidateDTO = ProfileCandidateResponseDTO.builder()
                 .email(candidate.getEmail())
